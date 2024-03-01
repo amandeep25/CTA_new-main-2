@@ -1,0 +1,46 @@
+# -*- mode: python ; coding: utf-8 -*-
+
+# pyinstaller pyinstaller-Windows10x64.spec --additional-hooks-dir=.
+
+import sys
+sys.setrecursionlimit(5000)
+
+block_cipher = None
+
+
+a = Analysis(['src/Main.py'],
+             binaries=[],
+             datas=[('src/Images/*', 'Images'),
+                    ('src/Fonts/*', 'Fonts'),
+                    ('src/External/XSD/*', 'External/XSD'),
+                    ('C:/Program Files/Python39/Lib/site-packages/wordcloud/stopwords', 'wordcloud' ),
+                    ('C:/Program Files/Python39/Lib/site-packages/wordcloud/DroidSansMono.ttf', 'wordcloud' ),
+                    ('C:/Program Files/Python39/Lib/site-packages/xmlschema/schemas', 'xmlschema/schemas')],
+             hiddenimports=['sklearn.utils._weight_vector', 'wx._xml', 'PIL.ImageFont'],
+             hookspath=['.'],
+             runtime_hooks=[],
+             excludes=['torch'],
+             win_no_prefer_redirects=False,
+             win_private_assemblies=False,
+             cipher=block_cipher,
+             noarchive=False)
+pyz = PYZ(a.pure, a.zipped_data,
+             cipher=block_cipher)
+exe = EXE(pyz,
+          a.scripts,
+          [],
+          exclude_binaries=True,
+          name='Toolkit',
+          debug=False,
+          bootloader_ignore_signals=False,
+          strip=False,
+          upx=True,
+          console=False )
+coll = COLLECT(exe,
+               a.binaries,
+               a.zipfiles,
+               a.datas,
+               strip=False,
+               upx=True,
+               upx_exclude=[],
+               name='bin')

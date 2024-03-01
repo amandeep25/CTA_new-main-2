@@ -1,0 +1,11 @@
+Data/
+Logs/
+Current_Workspace/
+Workspaces/
+Saved_Workspaces/
+.vscode/
+**/__pycache__
+build/
+dist/
+Output/
+.DS_Store
